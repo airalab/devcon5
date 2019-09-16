@@ -1,0 +1,46 @@
+name:                devcon50-worker
+version:             0.1.0.0
+github:              "airalab/devcon50-worker"
+license:             BSD3
+author:              "Alexander Krupenkin"
+maintainer:          "research@aira.life"
+copyright:           "(c) Airalab"
+
+extra-source-files:
+- README.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/airalab/devcon50-worker#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+- robonomics-tools >= 0.5.2
+- optparse-applicative
+- monad-logger
+- data-default
+- exceptions
+- bytestring
+- pipes
+- web3
+- text
+- mtl
+
+library:
+  source-dirs: src
+
+executables:
+  devcon50-worker:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - devcon50-worker
