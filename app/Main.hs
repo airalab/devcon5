@@ -29,8 +29,8 @@ run Options{..} = runStderrLoggingT $ do
     withIpfsDaemon $ \ipfsApi -> do
         $logInfo $ T.pack ("IPFS daemon launched at " ++ ipfsApi)
 
-        withEthereumAccount $ \account -> do
-            $logInfo $ T.pack ("Using Ethereum account " ++ show account)
+        withEthereumAccount $ \account address -> do
+            $logInfo $ T.pack ("Using Ethereum account " ++ show address)
 
             let lighthouse = lighthouseOf optionsBase
             $logInfo $ T.pack ("Launch worker for " ++ lighthouse)

@@ -26,6 +26,8 @@ dependencies:
 - data-default
 - exceptions
 - bytestring
+- cryptonite
+- aeson
 - pipes
 - web3
 - text
