@@ -3,8 +3,11 @@
 {-# LANGUAGE TemplateHaskell   #-}
 module Main where
 
-import           Control.Monad.Logger        (LoggingT, logError, logInfo,
-                                              runStderrLoggingT)
+import           Control.Concurrent          (forkIO)
+import           Control.Concurrent.Chan     (newChan)
+import           Control.Monad.Logger        (LoggingT, logDebug, logError,
+                                              logInfo, runChanLoggingT,
+                                              runStderrLoggingT, unChanLoggingT)
 import qualified Data.Text                   as T
 import           Network.Robonomics.InfoChan (publish, subscribe)
 import           Options.Applicative
@@ -13,7 +16,7 @@ import           Pipes
 import           Ethereum
 import           Ipfs
 import           Options
-import           Worker
+import           Robot
 
 main :: IO ()
 main = run =<< execParser opts
@@ -25,17 +28,33 @@ main = run =<< execParser opts
 run :: Options -> IO ()
 run Options{..} = runStderrLoggingT $ do
     $logInfo "Devcon50 Worker init..."
+    $logInfo $ T.pack ("My base: " ++ show optionsBase)
+    $logInfo $ T.pack ("My owner: " ++ show optionsOwner)
 
     withIpfsDaemon $ \ipfsApi -> do
-        $logInfo $ T.pack ("IPFS daemon launched at " ++ ipfsApi)
+        $logInfo $ T.pack ("IPFS connected to " ++ ipfsApi)
 
-        withEthereumAccount $ \account address -> do
-            $logInfo $ T.pack ("Using Ethereum account " ++ show address)
+        withEthereumAccount $ \key address -> do
+            $logInfo $ T.pack ("Ethereum address initialized: " ++ show address)
 
-            let lighthouse = lighthouseOf optionsBase
-            $logInfo $ T.pack ("Launch worker for " ++ lighthouse)
+            -- Create log channel
+            logChan <- liftIO newChan
 
-            runEffect $
-                subscribe ipfsApi lighthouse
-                >-> devcon50Worker account
-                >-> publish ipfsApi lighthouse
+            -- Spawn worker thread
+            liftIO $ forkIO $ runChanLoggingT logChan $ do
+                $logDebug "Worker thread launched"
+                runEffect $
+                    newLiabilities optionsProvider key
+                    >-> devcon50Worker optionsBase optionsOwner key
+                    >-> publish ipfsApi lighthouse
+
+            -- Spawn trader thread
+            liftIO $ forkIO $ runChanLoggingT logChan $ do
+                $logDebug "Trader thread launched"
+                runEffect $
+                    subscribe ipfsApi lighthouse
+                    >-> devcon50Trader optionsBase optionsOwner key
+                    >-> publish ipfsApi lighthouse
+
+            -- Logging in main thread
+            unChanLoggingT logChan

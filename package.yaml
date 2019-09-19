@@ -22,8 +22,10 @@ dependencies:
 - base >= 4.7 && < 5
 - robonomics-tools >= 0.5.2
 - optparse-applicative
+- pipes-concurrency
 - monad-logger
 - data-default
+- base58string
 - exceptions
 - bytestring
 - cryptonite
