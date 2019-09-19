@@ -35,9 +35,6 @@ dependencies:
 - text
 - mtl
 
-library:
-  source-dirs: src
-
 executables:
   devcon50-worker:
     main:                Main.hs
@@ -46,5 +43,3 @@ executables:
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
-    dependencies:
-    - devcon50-worker
