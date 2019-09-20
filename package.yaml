@@ -29,6 +29,7 @@ dependencies:
 - exceptions
 - bytestring
 - cryptonite
+- microlens
 - aeson
 - pipes
 - web3

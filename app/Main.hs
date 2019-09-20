@@ -34,8 +34,8 @@ run Options{..} = runStderrLoggingT $ do
     withIpfsDaemon $ \ipfsApi -> do
         $logInfo $ T.pack ("IPFS connected to " ++ ipfsApi)
 
-        withEthereumAccount $ \key address -> do
-            $logInfo $ T.pack ("Ethereum address initialized: " ++ show address)
+        withEthereumAccount $ \keypair -> do
+            $logInfo $ T.pack ("Ethereum address initialized: " ++ show (snd keypair))
 
             -- Create log channel
             logChan <- liftIO newChan
@@ -44,8 +44,8 @@ run Options{..} = runStderrLoggingT $ do
             liftIO $ forkIO $ runChanLoggingT logChan $ do
                 $logDebug "Worker thread launched"
                 runEffect $
-                    newLiabilities optionsProvider key
-                    >-> devcon50Worker optionsBase optionsOwner key
+                    newLiabilities optionsProvider (fst keypair)
+                    >-> devcon50Worker optionsBase optionsOwner keypair
                     >-> publish ipfsApi lighthouse
 
             -- Spawn trader thread
@@ -53,7 +53,7 @@ run Options{..} = runStderrLoggingT $ do
                 $logDebug "Trader thread launched"
                 runEffect $
                     subscribe ipfsApi lighthouse
-                    >-> devcon50Trader optionsBase optionsOwner key
+                    >-> devcon50Trader optionsBase optionsOwner optionsProvider keypair
                     >-> publish ipfsApi lighthouse
 
             -- Logging in main thread

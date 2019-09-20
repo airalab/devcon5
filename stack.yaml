@@ -17,7 +17,7 @@ packages:
 - '.'
 - location:
     git: git@github.com:airalab/robonomics-tools.git
-    commit: 39c666b457d34e7f4ec4f9b6c38125c74e6e6423
+    commit: cbd2f388f98f27a60f2d5e6a76f36d2e4c98e76d
   extra-dep: true
 
 # Dependency packages to be pulled from upstream that are not in the resolver
