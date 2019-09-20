@@ -20,7 +20,7 @@ infura :: Provider
 infura = HttpProvider "https://mainnet.infura.io/v3/1ba07380f3e740148f89852159695c73"
 
 lighthouse :: String
-lighthouse = "airalab.lighthouse.5.robonomics.eth"
+lighthouse = "devcon50.lighthouse.5.robonomics.eth"
 
 keyfileName :: FilePath
 keyfileName = "worker-keyfile.json"
