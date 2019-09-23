@@ -1,6 +1,6 @@
-name:                devcon50-worker
+name:                devcon5
 version:             0.1.0.0
-github:              "airalab/devcon50-worker"
+github:              "airalab/devcon5"
 license:             BSD3
 author:              "Alexander Krupenkin"
 maintainer:          "research@aira.life"
@@ -16,7 +16,7 @@ extra-source-files:
 # To avoid duplicated efforts in documentation and dealing with the
 # complications of embedding Haddock markup inside cabal files, it is
 # common to point users to the README.md file.
-description:         Please see the README on GitHub at <https://github.com/airalab/devcon50-worker#readme>
+description:         Please see the README on GitHub at <https://github.com/airalab/devcon5#readme>
 
 dependencies:
 - base >= 4.7 && < 5
@@ -37,7 +37,7 @@ dependencies:
 - mtl
 
 executables:
-  devcon50-worker:
+  worker:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
