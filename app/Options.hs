@@ -12,9 +12,9 @@ data BaseName = BaseRed | BaseBlue | BaseGreen
     deriving (Eq, Ord, Show)
 
 modelOf :: BaseName -> Base58String
-modelOf BaseRed   = b58String "QmWboFP8XeBtFMbNYK3Ne8Z3gKFBSR5iQzkKgeNgQz3dz4"
-modelOf BaseBlue  = b58String "QmWboFP8XeBtFMbNYK3Ne8Z3gKFBSR5iQzkKgeNgQz3dz4"
-modelOf BaseGreen = b58String "QmWboFP8XeBtFMbNYK3Ne8Z3gKFBSR5iQzkKgeNgQz3dz4"
+modelOf BaseRed   = b58String "QmZQKV8E3hjyxnEQGq1d4XCmeUDfzkAhryoJG3pcBkoUE6"
+modelOf BaseBlue  = b58String "QmRX4ekTAWnnKD1d5qfFkKk3HoArC1itF2XcEMAkh56Lva"
+modelOf BaseGreen = b58String "QmQU4tWfKvTQza7ydMR3zZFe9C8NicpLFkCQazK72TKx3m"
 
 infura :: Provider
 infura = HttpProvider "https://mainnet.infura.io/v3/1ba07380f3e740148f89852159695c73"

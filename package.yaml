@@ -30,6 +30,7 @@ dependencies:
 - bytestring
 - cryptonite
 - microlens
+- process
 - aeson
 - pipes
 - web3

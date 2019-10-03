@@ -32,8 +32,6 @@ run Options{..} = runStderrLoggingT $ do
     $logInfo $ T.pack ("My owner: " ++ show optionsOwner)
 
     withIpfsDaemon $ \ipfsApi -> do
-        $logInfo $ T.pack ("IPFS connected to " ++ ipfsApi)
-
         withEthereumAccount $ \keypair -> do
             $logInfo $ T.pack ("Ethereum address initialized: " ++ show (snd keypair))
 
