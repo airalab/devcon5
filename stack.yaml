@@ -14,16 +14,14 @@ resolver: lts-14.6
 #  - auto-update
 #  - wai
 packages:
-- '.'
-- location:
-    git: git@github.com:airalab/robonomics-tools.git
-    commit: aaf4272d7eecb38dc772c23ba9ee0042a25def3a 
-  extra-dep: true
+- .
 
 # Dependency packages to be pulled from upstream that are not in the resolver
 # using the same syntax as the packages field.
 # (e.g., acme-missiles-0.3)
-extra-deps: []
+extra-deps:
+- git: git@github.com:airalab/robonomics-tools.git
+  commit: aaf4272d7eecb38dc772c23ba9ee0042a25def3a 
 
 # Extra packages installed by Nix
 nix:
