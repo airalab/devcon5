@@ -38,7 +38,7 @@ dependencies:
 - mtl
 
 executables:
-  worker:
+  lunar_worker:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
