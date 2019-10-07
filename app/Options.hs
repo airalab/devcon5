@@ -40,8 +40,8 @@ data Options = Options
 options :: Parser Options
 options = Options
     <$> option (HttpProvider <$> str) (long "web3" <> value infura <> metavar "URI" <> help "Ethereum node endpoint [DEFAULT: Infura mainnet]")
-    <*> (   flag' BaseRed (long "red" <> help "Launch RED Devcon50 base worker")
-        <|> flag' BaseBlue (long "blue" <> help "Launch BLUE Devcon50 base worker")
-        <|> flag' BaseGreen (long "green" <> help "Launch GREEN Devcon50 base worker")
+    <*> (   flag' BaseRed (long "construction" <> help "Launch Сonstruction Devcon50 base worker")
+        <|> flag' BaseBlue (long "life" <> help "Launch Life Devcon50 base worker")
+        <|> flag' BaseGreen (long "brewery" <> help "Launch Brewery Devcon50 base worker")
         )
     <*> argument str (metavar "ADDRESS" <> help "Ethereum address of robot owner")
