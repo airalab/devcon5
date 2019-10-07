@@ -5,7 +5,7 @@ Workshop requirements: Linux, browser with [the MetaMask extension](https://meta
 
 ## Step by step instructions
 
-1. Open the statistics dapp in a browser with the MetaMask extension - [Moon base statistics](http://devcon5.robonomics.network)
+1. Open the statistics dapp in a browser with the MetaMask extension - [The Moon base statistics](http://devcon5.robonomics.network)
 
 ![statistics dapp](https://github.com/airalab/devcon5/raw/master/pic/step-1.png)
 
@@ -30,10 +30,16 @@ Workshop requirements: Linux, browser with [the MetaMask extension](https://meta
 
 6. Paste the selected program's model into section "Send message to the Robonomics.network" and push "Broadcast signal to the network" button. In section "Messages from the Robonomics.network" you will find your signal and after 1 - 3 sec you will see the signal from your lunar worker.
 
-7. Go back to [the statistics dapp](http://devcon5.robonomics.network). Wait some time and in the section "Users rating" you will see +1 for your MetaMask address. Common progress for selected type of work will be updated too.
+![In section "Messages from the Robonomics.network" you will find your signal](https://github.com/airalab/devcon5/raw/master/pic/step-6.png)
+
+And in terminal you will find next messages from lunar worker:
+
+![signal from your lunar worker](https://github.com/airalab/devcon5/raw/master/pic/step-6-1.png)
+
+7. Go back to [The Moon base statistics](http://devcon5.robonomics.network). Wait some time and in the section "Users rating" you will see +1 for your MetaMask address. Common progress for selected type of work will be updated too.
+
+![signal from your lunar worker](https://github.com/airalab/devcon5/raw/master/pic/step-7.png)
 
 8. Now, you can repeat steps 6 - 7 with 1 instance of your lunar worker or you can run more lunar workers with the same or different type of work in a new terminal tab. Run 2 or 3 lunar workers and start sending signals to them.
 
 Any questions send to [Robonomics eng telegram channel](https://aira.life/chat) or just raise your hand to ask our engineers to help you.
-
-> More is coming...
