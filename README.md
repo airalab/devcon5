@@ -7,6 +7,8 @@ Workshop requirements: linux, browser with [metamask extension](https://metamask
 
 1. Open statistics dapp in browser with metamask extension - [devcon5.robonomics.network](http://devcon5.robonomics.network)
 
+![statistics dapp](https://github.com/airalab/devcon5/raw/master/pic/step-1.png)
+
 2. Download lunar worker binary - [devcon50-linux-x86_64.tar.gz
 ](https://github.com/airalab/devcon5/releases/download/v1-rc1/devcon50-linux-x86_64.tar.gz)
 
