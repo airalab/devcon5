@@ -10,7 +10,7 @@ Workshop requirements: Linux, browser with [the MetaMask extension](https://meta
 ![statistics dapp](https://github.com/airalab/devcon5/raw/master/pic/step-1.png)
 
 2. Download the lunar worker binary - [lunar_worker-linux-x86_64.tar.gz
-](https://github.com/airalab/devcon5/releases/download/v1-rc1/lunar_worker-linux-x86_64.tar.gz
+](https://github.com/airalab/devcon5/releases/download/v1-rc2/lunar_worker-linux-x86_64.tar.gz
 )
 
 ![Robonomics on The Moon :: RC2](https://github.com/airalab/devcon5/raw/master/pic/step-2.png)
@@ -24,7 +24,7 @@ Workshop requirements: Linux, browser with [the MetaMask extension](https://meta
 
 ![Robonomics dapp section lighthouse devcon50](https://github.com/airalab/devcon5/raw/master/pic/step-4.png)
 
-5. Go to [the statistics dapp](http://devcon5.robonomics.network) from step 1 and copy "The program's model" associated with the selected type of work for your lunar worker (--construction | --life | --brewery).
+5. Go to [The Moon base statistics](http://devcon5.robonomics.network) from step 1 and copy "The program's model" associated with the selected type of work for your lunar worker (--construction | --life | --brewery).
 
 !["The program's model" associated with the selected type of work](https://github.com/airalab/devcon5/raw/master/pic/step-5.png)
 
