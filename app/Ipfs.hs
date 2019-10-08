@@ -2,6 +2,8 @@
 {-# LANGUAGE TemplateHaskell   #-}
 module Ipfs where
 
+import           Control.Concurrent     (forkIO, threadDelay)
+import           Control.Monad          (forever)
 import           Control.Monad.IO.Class (MonadIO (..))
 import           Control.Monad.Logger   (MonadLogger, logDebug, logError,
                                          logInfo)
@@ -21,6 +23,9 @@ withIpfsDaemon f = do
     case mbapi of
         Just api -> do
             $logInfo $ T.pack ("Using IPFS api at " ++ api)
+            liftIO $ forkIO $ forever $ do
+                swarmConnect api
+                threadDelay 20000000
             f api
         Nothing -> do
             $logError "IPFS initialisation error"
@@ -37,6 +42,10 @@ withIpfsDaemon f = do
             ExitFailure _ -> do
                 $logDebug $ T.pack ("IPFS: unable connect to " ++ api)
                 return False
+    swarmConnect api = do
+        let ipfs = proc "ipfs" ["--api", api, "swarm", "connect", "/dnsaddr/bootstrap.aira.life"]
+        readCreateProcessWithExitCode ipfs ""
+
 
 takeFirstM :: Monad m => (a -> m Bool) -> [a] -> m (Maybe a)
 takeFirstM _ [] = return Nothing
