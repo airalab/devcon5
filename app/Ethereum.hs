@@ -74,7 +74,7 @@ newLiabilities :: ( MonadIO m
 newLiabilities provider key = fromInputM $ do
     (output, input) <- liftIO (spawn unbounded)
     liftIO . forkIO . (catchErr <=< try) $ runWeb3' provider $
-        Liability.list factoryAddress (BlockWithNumber 8573788) Latest $ \_ contract -> do
+        Liability.list factoryAddress Latest Latest $ \_ contract -> do
             liability <- withAccount account $ Liability.read contract
             liftIO . atomically . void $ send output (contract, liability)
     $logDebug "Liability listener thread launched"
