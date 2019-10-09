@@ -2,14 +2,16 @@
 {-# LANGUAGE TemplateHaskell   #-}
 module Ipfs where
 
-import           Control.Concurrent     (forkIO, threadDelay)
-import           Control.Monad          (forever)
-import           Control.Monad.IO.Class (MonadIO (..))
-import           Control.Monad.Logger   (MonadLogger, logDebug, logError,
-                                         logInfo)
-import qualified Data.Text              as T
-import           System.Exit            (ExitCode (..), exitFailure)
-import           System.Process         (proc, readCreateProcessWithExitCode)
+import           Control.Concurrent        (forkIO, threadDelay)
+import           Control.Monad             (forever)
+import           Control.Monad.IO.Class    (MonadIO (..))
+import           Control.Monad.Logger      (MonadLogger, logDebug, logError,
+                                            logInfo)
+import           Crypto.Random             (MonadRandom (getRandomBytes))
+import           Data.Base58String.Bitcoin (Base58String, fromBytes)
+import qualified Data.Text                 as T
+import           System.Exit               (ExitCode (..), exitFailure)
+import           System.Process            (proc, readCreateProcessWithExitCode)
 
 airalabIpfsApi :: String
 airalabIpfsApi = "/dns4/ipfsapi.devcon50.aira.life/tcp/5001"
@@ -53,3 +55,6 @@ takeFirstM f (x : xs) = do
     success <- f x
     if success then return (Just x)
                else takeFirstM f xs
+
+generateObjective :: MonadRandom m => m Base58String
+generateObjective = fromBytes <$> getRandomBytes 34

@@ -8,6 +8,7 @@ import           Control.Concurrent.Chan     (newChan)
 import           Control.Monad.Logger        (LoggingT, logDebug, logError,
                                               logInfo, runChanLoggingT,
                                               runStderrLoggingT, unChanLoggingT)
+import           Data.Base58String           as B58 (toText)
 import qualified Data.Text                   as T
 import           Network.Robonomics.InfoChan (publish, subscribe)
 import           Options.Applicative
@@ -28,8 +29,8 @@ main = run =<< execParser opts
 run :: Options -> IO ()
 run Options{..} = runStderrLoggingT $ do
     $logInfo "Devcon50 Worker init..."
-    $logInfo $ T.pack ("My model: " ++ show (modelOf optionsBase))
-    $logInfo $ T.pack ("My objective: " ++ show optionsObjective)
+    objective <- liftIO generateObjective
+    $logInfo $ "My ID: " <> B58.toText objective
 
     withIpfsDaemon $ \ipfsApi ->
         withEthereumAccount $ \keypair -> do
@@ -51,7 +52,7 @@ run Options{..} = runStderrLoggingT $ do
                 $logDebug "Trader thread launched"
                 runEffect $
                     subscribe ipfsApi lighthouse
-                    >-> devcon50Trader optionsBase optionsObjective optionsProvider keypair
+                    >-> devcon50Trader optionsBase objective optionsProvider keypair
                     >-> publish ipfsApi lighthouse
 
             -- Logging in main thread
