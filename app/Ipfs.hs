@@ -57,4 +57,4 @@ takeFirstM f (x : xs) = do
                else takeFirstM f xs
 
 generateObjective :: MonadRandom m => m Base58String
-generateObjective = fromBytes <$> getRandomBytes 34
+generateObjective = (fromBytes . ("\x12\x20" <>)) <$> getRandomBytes 32
