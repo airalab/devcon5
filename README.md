@@ -10,7 +10,7 @@ Workshop requirements: Linux, browser with [the MetaMask extension](https://meta
 ![statistics dapp](https://github.com/airalab/devcon5/raw/master/pic/step-1.png)
 
 2. Download the lunar worker binary - [lunar_worker-linux-x86_64.tar.gz
-](https://github.com/airalab/devcon5/releases/download/v1-rc2/lunar_worker-linux-x86_64.tar.gz
+](https://github.com/airalab/devcon5/releases/download/v1/lunar-worker-linux-x86_64.tar.gz
 )
 
 ![Robonomics on The Moon :: RC2](https://github.com/airalab/devcon5/raw/master/pic/step-2.png)
