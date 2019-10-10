@@ -10,13 +10,12 @@ Workshop requirements: Linux, browser with [the MetaMask extension](https://meta
 ![statistics dapp](https://github.com/airalab/devcon5/raw/master/pic/step-1.png)
 
 2. Download the lunar worker binary - [lunar_worker-linux-x86_64.tar.gz
-](https://github.com/airalab/devcon5/releases/download/v1-rc2/lunar_worker-linux-x86_64.tar.gz
-)
+](https://github.com/airalab/devcon5/releases/download/v1-rc2/lunar_worker-linux-x86_64.tar.gz)
 
 ![Robonomics on The Moon :: RC2](https://github.com/airalab/devcon5/raw/master/pic/step-2.png)
 
-3. Run the lunar worker with the next options:
-`./lunar_worker (--construction | --life | --brewery) YOUR_METAMASK_ADDRESS`
+3. Run the lunar worker with one of the next options and find your robot ID in terminal log:
+`./lunar_worker (--construction | --life | --brewery)`
 
 ![Example of launched the lunar worker](https://github.com/airalab/devcon5/raw/master/pic/step-3.png)
 
@@ -28,7 +27,7 @@ Workshop requirements: Linux, browser with [the MetaMask extension](https://meta
 
 !["The program's model" associated with the selected type of work](https://github.com/airalab/devcon5/raw/master/pic/step-5.png)
 
-6. Paste the selected program's model into section "Send message to the Robonomics.network" and push "Broadcast signal to the network" button. In section "Messages from the Robonomics.network" you will find your signal and after 1 - 3 sec you will see the signal from your lunar worker.
+6. Paste the selected program's model and your robot id into section "Send message to the Robonomics.network" and push "Broadcast signal to the network" button. In section "Messages from the Robonomics.network" you will find your signal and after 1 - 3 sec you will see the signal from your lunar worker.
 
 ![In section "Messages from the Robonomics.network" you will find your signal](https://github.com/airalab/devcon5/raw/master/pic/step-6.png)
 

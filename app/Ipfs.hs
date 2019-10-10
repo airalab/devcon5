@@ -2,12 +2,16 @@
 {-# LANGUAGE TemplateHaskell   #-}
 module Ipfs where
 
-import           Control.Monad.IO.Class (MonadIO (..))
-import           Control.Monad.Logger   (MonadLogger, logDebug, logError,
-                                         logInfo)
-import qualified Data.Text              as T
-import           System.Exit            (ExitCode (..), exitFailure)
-import           System.Process         (proc, readCreateProcessWithExitCode)
+import           Control.Concurrent        (forkIO, threadDelay)
+import           Control.Monad             (forever)
+import           Control.Monad.IO.Class    (MonadIO (..))
+import           Control.Monad.Logger      (MonadLogger, logDebug, logError,
+                                            logInfo)
+import           Crypto.Random             (MonadRandom (getRandomBytes))
+import           Data.Base58String.Bitcoin (Base58String, fromBytes)
+import qualified Data.Text                 as T
+import           System.Exit               (ExitCode (..), exitFailure)
+import           System.Process            (proc, readCreateProcessWithExitCode)
 
 airalabIpfsApi :: String
 airalabIpfsApi = "/dns4/ipfsapi.devcon50.aira.life/tcp/5001"
@@ -21,6 +25,9 @@ withIpfsDaemon f = do
     case mbapi of
         Just api -> do
             $logInfo $ T.pack ("Using IPFS api at " ++ api)
+            liftIO $ forkIO $ forever $ do
+                swarmConnect api
+                threadDelay 20000000
             f api
         Nothing -> do
             $logError "IPFS initialisation error"
@@ -37,6 +44,10 @@ withIpfsDaemon f = do
             ExitFailure _ -> do
                 $logDebug $ T.pack ("IPFS: unable connect to " ++ api)
                 return False
+    swarmConnect api = do
+        let ipfs = proc "ipfs" ["--api", api, "swarm", "connect", "/dnsaddr/bootstrap.aira.life"]
+        readCreateProcessWithExitCode ipfs ""
+
 
 takeFirstM :: Monad m => (a -> m Bool) -> [a] -> m (Maybe a)
 takeFirstM _ [] = return Nothing
@@ -44,3 +55,6 @@ takeFirstM f (x : xs) = do
     success <- f x
     if success then return (Just x)
                else takeFirstM f xs
+
+generateObjective :: MonadRandom m => m Base58String
+generateObjective = (fromBytes . ("\x12\x20" <>)) <$> getRandomBytes 32

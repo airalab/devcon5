@@ -8,6 +8,7 @@ import           Control.Monad.IO.Class        (MonadIO (..))
 import           Control.Monad.Logger          (MonadLogger, logDebug, logError,
                                                 logInfo)
 import           Crypto.Ethereum               (PrivateKey)
+import           Data.Base58String             (Base58String)
 import           Data.Base58String.Bitcoin     (b58String)
 import           Data.ByteArray.HexString      (fromBytes, toText)
 import           Data.Solidity.Prim            (Address)
@@ -27,16 +28,16 @@ import           Options
 -- Getting demands, filter and handle it, provide supply responses.
 devcon50Trader :: (MonadLogger m, MonadIO m)
                => BaseName
-               -> Address
+               -> Base58String
                -> Provider
                -> KeyPair
                -> Pipe Msg Msg m ()
-devcon50Trader base owner provider (key, address) = forever $ do
+devcon50Trader base objective provider (key, address) = forever $ do
     incoming <- await
     case incoming of
         MkDemand demand -> do
             lift $ $logDebug $ T.pack $ "Received DEMAND " ++ show demand
-            when (demandModel demand == modelOf base && demandSender demand == owner) $ do
+            when (demandModel demand == modelOf base && demandObjective demand == objective) $ do
                 mboffer <- lift $ do
                     $logInfo "Received demand from owner, reply offer"
                     let setNonce nonce = (copyDemand demand) { offerNonce = nonce }
@@ -58,12 +59,12 @@ devcon50Trader base owner provider (key, address) = forever $ do
 -- Getting liabilities, filter it, do work and report.
 devcon50Worker :: (MonadLogger m, MonadIO m)
                => BaseName
-               -> Address
                -> KeyPair
                -> Pipe (Address, Liability) Msg m ()
-devcon50Worker base owner (key, address) = forever $ do
+devcon50Worker base (key, address) = forever $ do
     (liabilityAddress, Liability{..}) <- await
     lift $ $logDebug $ T.pack ("Incoming liability for " ++ show liabilityPromisor)
+
     when (liabilityPromisor == address) $ do
         lift $ $logInfo "I've get liability, start working..."
         -- TODO: funny works BEGIN
